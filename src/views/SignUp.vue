@@ -112,27 +112,35 @@
           event.preventDefault( );
           return;
         }
-        axios
-          .post( this.$store.state.backURL + path + this.role,
-            {
-              names: this.names.trim( ),
-              surnames: this.surnames.trim( ),
-              username: this.username.trim( ),
-              password: this.password
+        axios({
+          method: 'post',
+          url: this.$store.state.backURL + path + this.role,
+          data: {
+            names: this.names.trim(),
+            surnames: this.surnames.trim(),
+            username: this.username.trim(),
+            password: this.password
+          },
+          config: {
+            headers: {
+              'Content-Type': 'application/json',
             }
-          ).then( response => {
-            if( response.status !== 201 ){
-              alert( "Error en el almacenamiento del usuario" )
-            }else{
-              alert( "Usuario registrado correctamente" )
-            }
-          }).catch( error =>{
-            if( error.response.status === 400 ){
-              alert( "Parece que ya existe un usuario con el nombre de usuario \"" + this.username + "\"" );
-            }else{
-              alert( "Error en la aplicación" );
-            }
-          });
+          }
+        })
+        .then( function (response) {
+          if( response.status !== 201 ){
+            alert( "Error en el almacenamiento del usuario" )
+          }else{
+            alert( "Usuario registrado correctamente" )
+          }
+        })
+        .catch( function (error) {
+          if( error.response.status === 400 ){
+            alert( "Parece que ya existe un usuario con el nombre de usuario \"" + this.username + "\"" );
+          }else{
+            alert( "Error en la aplicación" );
+          }
+        });
         event.preventDefault( );
         return true;
       }
