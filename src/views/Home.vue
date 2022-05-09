@@ -7,6 +7,9 @@
     <div class="row mx-auto mt-2">
       <router-link :to="{path:'/principal/nuevo-rol'}"><button>Agregar rol</button></router-link>
     </div>
+    <div class="row mx-auto mt-2">
+      <router-link :to="{path:'/principal/roles'}"><button>Ver roles</button></router-link>
+    </div>
     <div class="row">
       <router-view></router-view>
     </div>
