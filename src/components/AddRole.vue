@@ -31,6 +31,7 @@
 
 <script>
   import axios from 'axios';
+  import {getAuthenticationToken} from '@/dataStorage';
 
   export default {
     name: "AddRole",
@@ -62,7 +63,7 @@
               password: this.password
             }, {
               params: {
-                access_token: localStorage.getItem( "token" )
+                access_token: getAuthenticationToken()
               }
             }
           ).then( response => {
@@ -71,10 +72,10 @@
             }else{
               alert( "Se ha asignado exitosamente el nuevo rol" );
             }
-          }).catch( response => {
-            if( response.response.status === 401 ){
+          }).catch( error => {
+            if( error.response.status === 401 ){
               alert( "¡Ups! Al parecer tu contraseña es incorrecta o la sesión ha finalizado" );
-            }else if ( response.response.status === 400 ){
+            }else if ( error.response.status === 400 ){
               alert( "¿Estás seguro de que aún no tienes ese rol asignado?" );
             }else{
               alert( "No es posible conectar con el backend en este momento" );
